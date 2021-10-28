@@ -1,0 +1,23 @@
+*** Settings ***
+Library         Selenium2Library
+Suite Setup     Go to testPage
+Suite Teardown  Close All Browsers
+
+*** Variables ***
+${HOMEPAGE}     https://hotline.ua/
+${BROWSER}      chrome
+
+*** Test Cases ***
+Search iphone 7 and follow the link
+    Seach and follow the link    iPhone 7
+
+*** Keywords ***
+Seach and follow the link
+    [Arguments]  ${searchkey}
+    Input Text  id=searchbox    ${searchkey}
+    Click Button    id=doSearch
+    Wait Until Page Contains Element    xpath=(//a[@href="/mobile-mobilnye-telefony-i-smartfony/apple-iphone-7-32gb-black/"])[2]
+    Click Link    xpath=(//a[@href="/mobile-mobilnye-telefony-i-smartfony/apple-iphone-7-32gb-black/"])[2]
+
+Go to testPage
+    Open Browser    ${HOMEPAGE}    ${BROWSER}
